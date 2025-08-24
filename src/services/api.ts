@@ -5,6 +5,18 @@ import logger from '../utils/logger';
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'API BASE URL NOT IMPLEMENTED';
 const API_KEY = process.env.REACT_APP_API_KEY || 'API KEY NOT IMPLEMENTED';
 
+// Define Job interface
+export interface Job {
+  id: number;
+  title: string;
+  location: string;
+  status: string;
+  newCandidates: number;
+  totalCandidates: number;
+  createdOn: string;
+  remote?: boolean;
+}
+
 logger.info('API_BASE_URL', API_BASE_URL);
 
 // Create axios instance with common configuration
@@ -80,6 +92,17 @@ export const updatePositionData = async (positionId: number, positionData: any) 
     return response.data;
   } catch (error) {
     logger.error('Error updating position data: ', error);
+    throw error;
+  }
+};
+
+// Get all jobs for a company
+export const getAllJobs = async (companyId: number) => {
+  try {
+    const response = await apiClient.get(`/v1/company/${companyId}/jobs`);
+    return response.data as Job[];
+  } catch (error) {
+    logger.error('Error getting company jobs: ', error);
     throw error;
   }
 };
