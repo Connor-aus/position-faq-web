@@ -231,7 +231,7 @@ const PositionDetailsPage: React.FC = () => {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Version</h3>
                 <p className="text-gray-800">{position.version}</p>
-                <p className="text-xs text-gray-500 mt-1">Last updated: {new Date(position.timestamp).toLocaleString()}</p>
+                <p className="text-xs text-gray-500 mt-1">Last updated: {new Date(position.timestamp).toLocaleString()} (Version {position.version})</p>
               </div>
               <div className="md:col-span-2 bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">Description</h3>
@@ -374,8 +374,8 @@ const PositionDetailsPage: React.FC = () => {
                           )}
                         </div>
                         <div className="mt-2 text-xs text-gray-500 flex justify-between">
-                          <span>Version: {info.version}</span>
-                          <span>Last updated: {new Date(info.timestamp).toLocaleString()}</span>
+                          <div></div>
+                          <span>Last updated: {new Date(info.timestamp).toLocaleString()} (Version {info.version})</span>
                         </div>
                       </div>
                       {editingSections.positionDetails && (
@@ -494,10 +494,9 @@ const PositionDetailsPage: React.FC = () => {
                                 </div>
                                 <div className="mt-2 text-xs text-gray-500 flex justify-between">
                                   <div>
-                                    <span>Version: {faq.version}</span>
-                                    <span className="ml-4">Times Asked: {faq.timesAsked}</span>
+                                    <span>Times Asked: {faq.timesAsked}</span>
                                   </div>
-                                  <span>Last updated: {new Date(faq.timestamp).toLocaleString()}</span>
+                                  <span>Last updated: {new Date(faq.timestamp).toLocaleString()} (Version {faq.version})</span>
                                 </div>
                                 <div className="mt-1 text-xs">
                                   {faq.generatedByUser && <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full mr-2">User Generated</span>}
@@ -579,10 +578,9 @@ const PositionDetailsPage: React.FC = () => {
                                 </div>
                                 <div className="mt-2 text-xs text-gray-500 flex justify-between">
                                   <div>
-                                    <span>Version: {faq.version}</span>
-                                    <span className="ml-4">Times Asked: {faq.timesAsked}</span>
+                                    <span>Times Asked: {faq.timesAsked}</span>
                                   </div>
-                                  <span>Last updated: {new Date(faq.timestamp).toLocaleString()}</span>
+                                  <span>Last updated: {new Date(faq.timestamp).toLocaleString()} (Version {faq.version})</span>
                                 </div>
                                 <div className="mt-1 text-xs">
                                   {faq.generatedByUser && <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full mr-2">User Generated</span>}
