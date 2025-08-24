@@ -25,7 +25,25 @@ const CandidateView: React.FC<CandidateViewProps> = ({ positionDetails }) => {
     
     try {
       const response = await sendChatRequest(question, position.id);
-      setChatResponse(response.answer || 'Thank you for your question. We will get back to you shortly.');
+      console.log('Chat response received:', response);
+      
+      // Handle different possible response structures
+      if (response) {
+        if (typeof response === 'string') {
+          setChatResponse(response);
+        } else if (response.answer) {
+          setChatResponse(response.answer);
+        } else if (response.response) {
+          setChatResponse(response.response);
+        } else if (response.message) {
+          setChatResponse(response.message);
+        } else {
+          // If we can't find a specific field, stringify the entire response
+          setChatResponse(JSON.stringify(response));
+        }
+      } else {
+        setChatResponse('Thank you for your question. We will get back to you shortly.');
+      }
     } catch (err) {
       setError('Sorry, we couldn\'t process your question at this time. Please try again later.');
       console.error('Chat request error:', err);

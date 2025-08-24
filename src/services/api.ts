@@ -100,6 +100,42 @@ apiClient.interceptors.response.use(
 export const sendChatRequest = async (question: string, positionId: number) => {
   try {
     logger.info('Sending chat request:', { question, positionId });
+    
+    // For development/testing: mock a successful response with a delay
+    if (process.env.NODE_ENV === 'development') {
+      logger.info('Using mock chat response in development mode');
+      
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Generate a mock response based on the question
+      const mockResponses = {
+        salary: "The salary range for this position is competitive and depends on experience, typically ranging from $80,000 to $120,000 annually.",
+        experience: "We're looking for candidates with at least 3-5 years of relevant experience in this field.",
+        remote: "This position offers flexible work arrangements with 2-3 days of remote work per week.",
+        benefits: "We offer comprehensive benefits including health insurance, 401(k) matching, generous PTO, and professional development opportunities.",
+        interview: "The interview process consists of an initial phone screening, followed by a technical assessment and 1-2 rounds of team interviews.",
+        default: "Thank you for your question about this position. Our team will review and provide more specific information soon."
+      };
+      
+      // Check if the question contains keywords and return appropriate response
+      const lowerQuestion = question.toLowerCase();
+      if (lowerQuestion.includes('salary') || lowerQuestion.includes('pay') || lowerQuestion.includes('compensation')) {
+        return { answer: mockResponses.salary };
+      } else if (lowerQuestion.includes('experience') || lowerQuestion.includes('background') || lowerQuestion.includes('qualification')) {
+        return { answer: mockResponses.experience };
+      } else if (lowerQuestion.includes('remote') || lowerQuestion.includes('work from home') || lowerQuestion.includes('location')) {
+        return { answer: mockResponses.remote };
+      } else if (lowerQuestion.includes('benefits') || lowerQuestion.includes('perks') || lowerQuestion.includes('insurance')) {
+        return { answer: mockResponses.benefits };
+      } else if (lowerQuestion.includes('interview') || lowerQuestion.includes('process') || lowerQuestion.includes('hiring')) {
+        return { answer: mockResponses.interview };
+      } else {
+        return { answer: mockResponses.default };
+      }
+    }
+    
+    // Actual API call for production
     const response = await apiClient.post('/v1/chatRequest', { 
       question, 
       positionId 
