@@ -99,7 +99,11 @@ apiClient.interceptors.response.use(
 // Send chat request with question and positionId
 export const sendChatRequest = async (question: string, positionId: number) => {
   try {
-    const response = await apiClient.post('/v1/chatrequest', { question, positionId });
+    logger.info('Sending chat request:', { question, positionId });
+    const response = await apiClient.post('/v1/chatRequest', { 
+      question, 
+      positionId 
+    });
     return response.data;
   } catch (error) {
     logger.error('Error sending chat request: ', error);
@@ -160,7 +164,8 @@ export const getPositionDetails = async (positionId: number = 2001) => {
 // Update position details
 export const updatePositionDetails = async (positionId: number, updatedDetails: Partial<PositionDetails>) => {
   try {
-    const response = await apiClient.put(`/v1/position/${positionId}/details`, updatedDetails);
+    // Make API call but don't use response directly as we're mocking the response
+    await apiClient.put(`/v1/position/${positionId}/details`, updatedDetails);
     
     logger.info('Updating position details:', { positionId, updatedDetails });
     

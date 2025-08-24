@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { PositionDetails, getPositionDetails, updatePositionDetails } from '../../services/api';
+import CandidateView from './CandidateView';
 
 const PositionDetailsPage: React.FC = () => {
   const { positionId } = useParams<{ positionId: string }>();
@@ -18,6 +19,7 @@ const PositionDetailsPage: React.FC = () => {
     faqs: false
   });
   const [enableAIChatbot, setEnableAIChatbot] = useState<boolean>(false);
+  const [activeView, setActiveView] = useState<'employer' | 'candidate'>('employer');
 
   // Helper function to filter and keep only the latest version of each item
   const filterLatestVersions = (items: any[]) => {
@@ -151,6 +153,26 @@ const PositionDetailsPage: React.FC = () => {
       <div className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold">Position Details</h1>
+          
+          {/* View Toggle Tabs */}
+          <div className="flex border-b border-gray-200 mt-4">
+            <button
+              onClick={() => setActiveView('employer')}
+              className={`py-2 px-4 font-medium text-sm ${activeView === 'employer' 
+                ? 'border-b-2 border-blue-500 text-blue-600' 
+                : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              Employer View
+            </button>
+            <button
+              onClick={() => setActiveView('candidate')}
+              className={`py-2 px-4 font-medium text-sm ${activeView === 'candidate' 
+                ? 'border-b-2 border-blue-500 text-blue-600' 
+                : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              Candidate View
+            </button>
+          </div>
         </div>
       </div>
 
@@ -163,7 +185,12 @@ const PositionDetailsPage: React.FC = () => {
             &larr; Back to Jobs
           </button>
         </div>
-
+        
+        {/* Conditional rendering based on active view */}
+        {activeView === 'candidate' && positionDetails ? (
+          <CandidateView positionDetails={positionDetails} />
+        ) : (
+          <>
         {/* Save/Cancel controls - only shown when any section is being edited */}
         {isAnySectionEditing() && (
           <div className="bg-white rounded-lg shadow p-4 mb-6 flex justify-end">
@@ -610,6 +637,8 @@ const PositionDetailsPage: React.FC = () => {
             )}
           </div>
         </div>
+          </>
+        )}
       </div>
     </div>
   );
