@@ -138,130 +138,17 @@ export interface PositionVersionsResponse {
 }
 
 // Get detailed position data by positionId
-export const getPositionDetails = async (positionId: number) => {
+export const getPositionDetails = async (positionId: number = 2001) => {
   try {
-    // For demo purposes, use mock data from the example file
-    // In a real app, this would be: const response = await apiClient.get(`/v1/position/${positionId}/versions`);
+    // Always use position ID 2001 as hardcoded value
+    const hardcodedPositionId = 1001;
     
-    // Mock response for development
-    const mockData = {
-      "versions": [
-        {
-          "position": {
-            "id": 1001,
-            "companyId": 2001,
-            "positionTitle": "Senior Full Stack Engineer (Payments)",
-            "positionDescription": "Senior Full Stack Engineer (Payments). Brisbane (Hybrid). Own key features across React + Node/AWS stack. Collaborate with Product and Design. On-call rotation optional.",
-            "version": 1,
-            "timestamp": "2025-08-24T15:05:00+10:00"
-          },
-          "positionFAQs": [
-            {
-              "id": 50001,
-              "positionId": 1001,
-              "generatedByUser": false,
-              "answeredByHR": true,
-              "timesAsked": 1,
-              "question": "Is this role hybrid or fully on-site?",
-              "response": "Hybrid: 2 days in-office (Tue/Thu), flexible start 7-10am.",
-              "version": 1,
-              "timestamp": "2025-08-24T12:10:00+10:00"
-            },
-            {
-              "id": 50002,
-              "positionId": 1001,
-              "generatedByUser": true,
-              "answeredByHR": false,
-              "timesAsked": 1,
-              "question": "Is parking provided for this role's office?",
-              "response": null,
-              "version": 1,
-              "timestamp": "2025-08-24T12:42:00+10:00"
-            },
-            {
-              "id": 50003,
-              "positionId": 1001,
-              "generatedByUser": true,
-              "answeredByHR": true,
-              "timesAsked": 1,
-              "question": "What does the interview process look like?",
-              "response": "30-min recruiter screen → 60-min tech interview → 60-min system design → final values interview.",
-              "version": 2,
-              "timestamp": "2025-08-24T13:30:00+10:00"
-            },
-            {
-              "id": 50004,
-              "positionId": 1001,
-              "generatedByUser": true,
-              "answeredByHR": false,
-              "timesAsked": 1,
-              "question": "Do you offer a relocation allowance?",
-              "response": null,
-              "version": 1,
-              "timestamp": "2025-08-24T14:15:00+10:00"
-            }
-          ],
-          "positionInfo": [
-            {
-              "id": 60001,
-              "positionId": 1001,
-              "generatedByUser": false,
-              "answeredByHR": true,
-              "subject": "Team size",
-              "answer": "8 engineers (2 seniors, 4 mids, 2 juniors) + 1 EM + 1 PM.",
-              "version": 1,
-              "timestamp": "2025-08-24T11:55:00+10:00"
-            },
-            {
-              "id": 60002,
-              "positionId": 1001,
-              "generatedByUser": false,
-              "answeredByHR": true,
-              "subject": "Tech stack",
-              "answer": "React, TypeScript, Node.js, AWS (Lambda, API Gateway, DynamoDB), Terraform, GitHub Actions.",
-              "version": 1,
-              "timestamp": "2025-08-24T11:56:00+10:00"
-            },
-            {
-              "id": 60003,
-              "positionId": 1001,
-              "generatedByUser": true,
-              "answeredByHR": false,
-              "subject": "Travel expectations",
-              "answer": null,
-              "version": 1,
-              "timestamp": "2025-08-24T13:05:00+10:00"
-            },
-            {
-              "id": 60002,
-              "positionId": 1001,
-              "generatedByUser": false,
-              "answeredByHR": true,
-              "subject": "Tech stack",
-              "answer": "React, JavaScript, Node.js, AWS (Lambda, API Gateway, DynamoDB), Terraform, GitHub Actions.",
-              "version": 2,
-              "timestamp": "2025-08-24T14:05:00+10:00"
-            },
-            {
-              "id": 60005,
-              "positionId": 1001,
-              "generatedByUser": true,
-              "answeredByHR": true,
-              "subject": "Salary",
-              "answer": "Unknown at this stage.",
-              "version": 1,
-              "timestamp": "2025-08-24T14:05:00+10:00"
-            }
-          ]
-        }
-      ]
-    };
-
-    // Use the first version from the versions array
-    const versionsResponse = mockData as PositionVersionsResponse;
+    // Call the actual API endpoint
+    const response = await apiClient.get(`/v1/position/${hardcodedPositionId}/versions`);
+    const versionsResponse = response.data as PositionVersionsResponse;
     
     // Find the position with matching ID or use the first one as fallback
-    const positionDetail = versionsResponse.versions.find(v => v.position.id === positionId) || versionsResponse.versions[0];
+    const positionDetail = versionsResponse.versions.find(v => v.position.id === hardcodedPositionId) || versionsResponse.versions[0];
     
     return positionDetail;
   } catch (error) {
