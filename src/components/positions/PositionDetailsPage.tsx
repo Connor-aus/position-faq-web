@@ -39,7 +39,11 @@ const PositionDetailsPage: React.FC = () => {
 
   useEffect(() => {
     const fetchPositionDetails = async () => {
-      if (!positionId) return;
+      if (!positionId) {
+        setError('Position ID is required');
+        setLoading(false);
+        return;
+      }
       
       try {
         setLoading(true);
