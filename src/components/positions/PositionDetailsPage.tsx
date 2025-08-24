@@ -301,16 +301,18 @@ const PositionDetailsPage: React.FC = () => {
                     Enable AI Chatbot
                   </label>
                 </div>
-                <div className="group relative">
-                  <button className="text-gray-400 hover:text-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <div className="relative inline-block">
+                  <button 
+                    className="text-gray-400 hover:text-gray-600 focus:outline-none peer" 
+                    aria-label="Information"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
                     </svg>
                   </button>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-0 w-72 bg-white border border-gray-200 p-3 rounded-lg shadow-lg z-10">
+                  <div className="hidden peer-hover:block absolute right-0 w-72 bg-white border border-gray-200 p-3 rounded-lg shadow-lg z-10">
                     <p className="text-sm text-gray-600">
                       The AI Chatbot can answer candidate questions using the information provided here. A list of all common questions that the AI in unable to answer will be displayed here for you to address.
-                      <a href="#" className="block text-blue-600 hover:underline mt-1">Find out more</a>
                     </p>
                   </div>
                 </div>
