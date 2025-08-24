@@ -42,6 +42,7 @@ export interface PositionDetails {
   position: Position;
   positionFAQs: FAQ[];
   positionInfo: PositionInfo[];
+  enableAIChatbot?: boolean; // Optional property for AI chatbot setting
 }
 
 export interface PositionsResponse {
@@ -272,8 +273,7 @@ export const getPositionDetails = async (positionId: number) => {
 // Update position details
 export const updatePositionDetails = async (positionId: number, updatedDetails: Partial<PositionDetails>) => {
   try {
-    // For demo purposes, just log the update and return mock success
-    // In a real app, this would be: const response = await apiClient.put(`/v1/position/${positionId}/details`, updatedDetails);
+    const response = await apiClient.put(`/v1/position/${positionId}/details`, updatedDetails);
     
     logger.info('Updating position details:', { positionId, updatedDetails });
     
