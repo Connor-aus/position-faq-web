@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Job, getAllJobs } from '../../services/api';
 
 interface JobsPageProps {
@@ -142,7 +143,11 @@ const JobsPage: React.FC<JobsPageProps> = ({ companyId }) => {
           ) : (
             jobs.map((job) => (
               <div key={job.id} className="grid grid-cols-6 p-4 border-b hover:bg-gray-50">
-                <div className="text-blue-600">{job.title}</div>
+                <div className="text-blue-600">
+                  <Link to={`/position/${job.id}`} className="hover:underline">
+                    {job.title}
+                  </Link>
+                </div>
                 <div>{job.newCandidates}</div>
                 <div>{job.totalCandidates}</div>
                 <div>{job.location}</div>
@@ -160,7 +165,11 @@ const JobsPage: React.FC<JobsPageProps> = ({ companyId }) => {
           {jobs.length === 0 && !loading && !error && (
             <>
               <div className="grid grid-cols-6 p-4 border-b hover:bg-gray-50">
-                <div className="text-blue-600">IT Trainer - Remote</div>
+                <div className="text-blue-600">
+                  <Link to="/position/1001" className="hover:underline">
+                    IT Trainer - Remote
+                  </Link>
+                </div>
                 <div>5</div>
                 <div>10</div>
                 <div>Glebe</div>
@@ -172,7 +181,11 @@ const JobsPage: React.FC<JobsPageProps> = ({ companyId }) => {
                 <div>19/07/2024</div>
               </div>
               <div className="grid grid-cols-6 p-4 border-b hover:bg-gray-50">
-                <div className="text-blue-600">Account Coordinator - Remote</div>
+                <div className="text-blue-600">
+                  <Link to="/position/1002" className="hover:underline">
+                    Account Coordinator - Remote
+                  </Link>
+                </div>
                 <div>0</div>
                 <div>0</div>
                 <div>North Sydney</div>
@@ -184,7 +197,11 @@ const JobsPage: React.FC<JobsPageProps> = ({ companyId }) => {
                 <div>19/07/2024</div>
               </div>
               <div className="grid grid-cols-6 p-4 border-b hover:bg-gray-50">
-                <div className="text-blue-600">[TEST] Digital Marketing Coordinator - Remote</div>
+                <div className="text-blue-600">
+                  <Link to="/position/1003" className="hover:underline">
+                    [TEST] Digital Marketing Coordinator - Remote
+                  </Link>
+                </div>
                 <div>13</div>
                 <div>16</div>
                 <div>Glebe</div>
@@ -196,7 +213,11 @@ const JobsPage: React.FC<JobsPageProps> = ({ companyId }) => {
                 <div>12/07/2024</div>
               </div>
               <div className="grid grid-cols-6 p-4 border-b hover:bg-gray-50">
-                <div className="text-blue-600">Barista</div>
+                <div className="text-blue-600">
+                  <Link to="/position/1004" className="hover:underline">
+                    Barista
+                  </Link>
+                </div>
                 <div>65</div>
                 <div>65</div>
                 <div>Central London</div>
