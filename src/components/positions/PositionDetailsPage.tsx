@@ -92,7 +92,7 @@ const PositionDetailsPage: React.FC = () => {
         enableAIChatbot // Add the AI chatbot setting
       };
       
-      await updatePositionDetails(parseInt(positionId, 10), updatedData);
+      const response = await updatePositionDetails(parseInt(positionId, 10), updatedData);
       
       // Reset all editing states
       setEditingSections({
@@ -101,9 +101,17 @@ const PositionDetailsPage: React.FC = () => {
         faqs: false
       });
       
-      // Refresh data
-      const updatedDetails = await getPositionDetails(parseInt(positionId, 10));
-      setPositionDetails(updatedDetails);
+      // Use the refreshed data returned directly from updatePositionDetails
+      if (response.refreshedData) {
+        // Filter position info and FAQs to only include the latest version of each item
+        const filteredDetails = {
+          ...response.refreshedData,
+          positionInfo: filterLatestVersions(response.refreshedData.positionInfo),
+          positionFAQs: filterLatestVersions(response.refreshedData.positionFAQs)
+        };
+        
+        setPositionDetails(filteredDetails);
+      }
     } catch (err) {
       setError('Failed to update position details');
       console.error(err);

@@ -206,10 +206,19 @@ export const updatePositionDetails = async (positionId: number, updatedDetails: 
     logger.info('Updating position details:', { positionId, updatedDetails });
     
     // Mock successful response
-    return {
+    const response = {
       success: true,
       message: 'Position details updated successfully',
       updatedAt: new Date().toISOString()
+    };
+    
+    // Fetch the updated position details
+    const refreshedDetails = await getPositionDetails(positionId);
+    
+    // Return both the success response and the refreshed data
+    return {
+      ...response,
+      refreshedData: refreshedDetails
     };
   } catch (error) {
     logger.error('Error updating position details: ', error);
