@@ -1,0 +1,4 @@
+/* App.css - will be used with tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
